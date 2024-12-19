@@ -7,6 +7,17 @@ from pyquaternion import Quaternion
 
 import sys
 
+""" 
+每个节点都需要运行一次该py文件，如需多机运行，则需运行.sh
+
+命令行参数
+1. 机型: vehicle_type
+2. 机号: vehicle_id
+
+说明
+1. 服务切换还是通过订阅者接收的信息
+"""
+
 rospy.init_node(sys.argv[1]+'_'+sys.argv[2]+"_communication")
 rate = rospy.Rate(30)
 
@@ -157,6 +168,7 @@ class Communication:
             self.hover_flag = 1
             self.flight_mode = 'HOVER'
             self.hover()
+
     def cmd_callback(self, msg):
         if msg.data == self.last_cmd or msg.data == '' or msg.data == 'stop controlling':
             return
