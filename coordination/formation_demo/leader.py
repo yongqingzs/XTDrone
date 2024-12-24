@@ -8,6 +8,14 @@ from geometry_msgs.msg import Twist, Vector3, PoseStamped
 from std_msgs.msg import String, Int32MultiArray, Float32MultiArray
 import sys
 import numpy
+
+DEBUG_FLAG = 0
+if DEBUG_FLAG == 0:
+    pass
+elif DEBUG_FLAG == 1:
+    sys.argv.append('iris')
+    sys.argv.append('9')
+
 if sys.argv[2] == '6':
     from formation_dict import formation_dict_6 as formation_dict
 elif sys.argv[2] == '9':
@@ -139,7 +147,9 @@ class Leader:
         return new_formation
 
     def get_communication_topology(self, rel_posi):
-
+        """
+        rel_posi: new_formation
+        """
         c_num = int((self.uav_num) / 2)
         min_num_index_list = [0] * c_num
 
@@ -261,7 +271,7 @@ class Leader:
             self.formation_pattern_pub.publish(formation_pattern)
             if(not self.communication_topology is None):
                 communication_topology = Int32MultiArray()
-                communication_topology.data = self.communication_topology.flatten().tolist()
+                communication_topology.data = self.communication_topology.flatten().astype(int).tolist()
                 self.communication_topology_pub.publish(communication_topology)
             self.vel_enu_pub.publish(self.cmd_vel_enu)
             self.pose_pub.publish(self.pose)
@@ -272,5 +282,5 @@ class Leader:
                 continue
 
 if __name__ == '__main__':
-    leader = Leader(sys.argv[1], 0, int(sys.argv[2]))
+    leader = Leader(sys.argv[1], 0, int(sys.argv[2]))   # leader默认为0号无人机
     leader.loop()   

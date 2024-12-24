@@ -18,6 +18,15 @@ import sys
 1. 服务切换还是通过订阅者接收的信息
 """
 
+# only for test
+DEBUG_FLAG = 0
+if DEBUG_FLAG == 0:
+    pass
+elif DEBUG_FLAG == 1:
+    sys.argv.append('solo')
+    sys.argv.append('0')
+###############
+
 rospy.init_node(sys.argv[1]+'_'+sys.argv[2]+"_communication")
 rate = rospy.Rate(30)
 

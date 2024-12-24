@@ -4,6 +4,21 @@ import sys, select, os
 import tty, termios
 from std_msgs.msg import String
 
+"""
+命令行参数
+1. 机型: multirotor_type
+2. 数量: multirotor_num
+3. 控制方式: control_type
+"""
+# only for test
+DEBUG_FLAG = 0
+if DEBUG_FLAG == 0:
+    pass
+elif DEBUG_FLAG == 1:
+    sys.argv.append('solo')
+    sys.argv.append('1')
+    sys.argv.append('vel')
+###############
 
 MAX_LINEAR = 20
 MAX_ANG_VEL = 3
@@ -35,6 +50,7 @@ s/k : hover and remove the mask of keyboard control
 0~9 : extendable mission(eg.different formation configuration)
       this will mask the keyboard control
 g   : control the leader
+c   : increase upward to 0.31; offboard; arm
 CTRL-C to quit
 """
 
@@ -57,6 +73,7 @@ v/n : takeoff/land
 b   : offboard
 s/k : hover and remove the mask of keyboard control
 g   : control all drones
+c   : increase upward to 0.31; offboard; arm
 CTRL-C to quit
 """
 
@@ -125,9 +142,23 @@ if __name__=="__main__":
     upward  = 0.0
     angular = 0.0
 
+    c_flag = 0
     print_msg()
     while(1):
         key = getKey()
+        if c_flag == 1:
+            cmd = 'OFFBOARD'
+            # print_msg()
+            print('Offboard')
+            key = ''
+            c_flag += 1
+        elif c_flag == 2:
+            cmd = 'ARM'
+            # print_msg()
+            print('Arming')
+            key = ''
+            c_flag = 0
+
         if key == 'w' :
             forward = forward + LINEAR_STEP_SIZE
             print_msg()
@@ -135,6 +166,11 @@ if __name__=="__main__":
                 print("currently:\t forward vel %.2f\t leftward vel %.2f\t upward vel %.2f\t angular %.2f " % (forward, leftward, upward, angular))
             else:
                 print("currently:\t forward vel %.2f\t leftward vel %.2f\t upward vel %.2f\t angular %.2f " % (forward, leftward, upward, angular))
+
+        elif key == 'c':
+            upward = 0.3
+            c_flag = 1
+            print_msg()
 
         elif key == 'x' :
             forward = forward - LINEAR_STEP_SIZE

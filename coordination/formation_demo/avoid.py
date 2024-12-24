@@ -4,6 +4,14 @@ import time
 import numpy 
 import sys
 
+DEBUG_FLAG = 0
+if DEBUG_FLAG == 0:
+    pass
+elif DEBUG_FLAG == 1:
+    sys.argv.append('iris')
+    sys.argv.append('9')
+    sys.argv.append('vel')
+
 vehicle_type = sys.argv[1]
 vehicle_num = int(sys.argv[2])
 control_type = sys.argv[3]
