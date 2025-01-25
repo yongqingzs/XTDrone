@@ -143,7 +143,7 @@
       <link name='actor_pose'>
         <gravity>0</gravity>
         <self_collide>0</self_collide>
-        <visual name='actor_visual_0'>
+        <visual name='actor_visual'>
           <geometry>
             <mesh>
               <uri>walk.dae</uri>
@@ -153,7 +153,7 @@
           <pose frame=''>0 0 0 0 -0 0</pose>
         </visual>
         <enable_wind>0</enable_wind>
-        <visual name='actor_visual_1'>
+        <visual name='actor_visual'>
           <geometry>
             <mesh>
               <uri>walk.dae</uri>
@@ -162,7 +162,7 @@
           </geometry>
           <pose frame=''>0 0 0 0 -0 0</pose>
         </visual>
-        <visual name='actor_visual_2'>
+        <visual name='actor_visual'>
           <geometry>
             <mesh>
               <uri>walk.dae</uri>
@@ -171,7 +171,7 @@
           </geometry>
           <pose frame=''>0 0 0 0 -0 0</pose>
         </visual>
-        <visual name='actor_visual_3'>
+        <visual name='actor_visual'>
           <geometry>
             <mesh>
               <uri>walk.dae</uri>
@@ -180,7 +180,7 @@
           </geometry>
           <pose frame=''>0 0 0 0 -0 0</pose>
         </visual>
-        <visual name='actor_visual_4'>
+        <visual name='actor_visual'>
           <geometry>
             <mesh>
               <uri>walk.dae</uri>
